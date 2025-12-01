@@ -42,7 +42,6 @@ class BarcodeAnalyzer(private val lensFacing: CameraType, formats: List<BarcodeT
             return@addOnSuccessListener
           }
           val barcode = barcodes.first()
-          val raw = barcode.rawValue ?: barcode.rawBytes?.let { String(it) }
 
           val cornerPoints = mutableListOf<Int>()
           barcode.cornerPoints?.let { points ->
@@ -56,7 +55,8 @@ class BarcodeAnalyzer(private val lensFacing: CameraType, formats: List<BarcodeT
             BarCodeScannerResult(
               barcode.format,
               barcode.displayValue,
-              raw,
+              barcode.rawValue,
+              barcode.rawBytes,
               extra,
               cornerPoints,
               image.width,

@@ -8,6 +8,7 @@ class BarcodeScannedEvent(
   @Field val target: Int,
   @Field val data: String,
   @Field val raw: String,
+  @Field val rawBytes: ByteArray?,
   @Field val type: String,
   @Field val cornerPoints: ArrayList<Bundle>,
   @Field val bounds: Bundle,

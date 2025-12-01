@@ -11,6 +11,7 @@ object BarCodeScannerResultSerializer {
     Bundle().apply {
       putString("data", result.value)
       putString("raw", result.raw)
+      putByteArray("rawBytes", result.rawBytes)
       putInt("type", result.type)
       putBundle("extra", result.extra)
       val cornerPointsAndBoundingBox = getCornerPointsAndBoundingBox(result.cornerPoints, result.boundingBox, density)
@@ -19,9 +20,8 @@ object BarCodeScannerResultSerializer {
     }
 
   fun parseBarcodeScanningResult(barcode: Barcode, inputImage: InputImage? = null): BarCodeScannerResult {
-    val raw = barcode.rawValue ?: barcode.rawBytes?.let { String(it) }
     val value = if (barcode.valueType == Barcode.TYPE_CONTACT_INFO) {
-      raw
+      barcode.rawValue
     } else {
       barcode.displayValue
     }
@@ -33,7 +33,7 @@ object BarCodeScannerResultSerializer {
     }
 
     val extra = parseExtraDate(barcode)
-    return BarCodeScannerResult(barcode.format, value, raw, extra, cornerPoints, inputImage?.height ?: 0, inputImage?.width ?: 0)
+    return BarCodeScannerResult(barcode.format, value, barcode.rawValue, barcode.rawBytes, extra, cornerPoints, inputImage?.height ?: 0, inputImage?.width ?: 0)
   }
 
   private fun getCornerPointsAndBoundingBox(

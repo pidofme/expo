@@ -14,6 +14,7 @@ export default function CameraScreenNextBarcode() {
 
   useEffect(() => {
     const subscription = CameraView.onModernBarcodeScanned((event) => {
+      console.log('event: ', event);
       setResult(event);
       if (CameraView.isModernBarcodeScannerAvailable) {
         CameraView.dismissScanner();

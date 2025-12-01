@@ -288,10 +288,17 @@ export type BarcodeScanningResult = {
   /**
    * The raw information encoded in the barcode.
    * May be different from `data` depending on the barcode type.
+   * Only available when the barcode is encoded in the UTF-8 format, for non-UTF8 ones use `rawBytes` instead.
    * @platform android
    * @hidden
    */
   raw?: string;
+  /**
+   * The raw bytes encoded in the barcode.
+   * @platform android
+   * @hidden
+   */
+  rawBytes?: Uint8Array;
   /**
    * Corner points of the bounding box.
    * `cornerPoints` is not always available and may be empty. On iOS, for `code39` and `pdf417`

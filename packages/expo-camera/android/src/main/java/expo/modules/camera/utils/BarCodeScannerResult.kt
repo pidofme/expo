@@ -6,6 +6,7 @@ class BarCodeScannerResult(
   val type: Int,
   val value: String?,
   val raw: String?,
+  val rawBytes: ByteArray?,
   val extra: Bundle,
   var cornerPoints: MutableList<Int>,
   var height: Int,
